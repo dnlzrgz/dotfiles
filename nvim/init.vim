@@ -1,125 +1,196 @@
-set encoding=utf-8
-set fileencoding=utf-8
-set spell                             " spell checking
-set spelllang=en_us,es_es
-set nocompatible                      " disable compatibility to old-time vim
-set showmatch                         " show matching
-set ignorecase                        " case insensitive
-set mouse=a                           " enable mouse click
-set hlsearch                          " highlight search
-set incsearch                         " incremental search
-set tabstop=2                         " number of columns per tab
-set softtabstop=0
-set shiftwidth=2                      " width for autoindents
-set autoindent
-set wildmode=longest,list             " bash-like completions
-set number                            " line numbers
-set cc=80                             " 80 column border
-set cursorline                        " highlight current cursorline
-set ttyfast 				   			 	        " speed up scrolling
-set laststatus=2
-set splitright
-set splitbelow
-set backspace=indent,eol,start        " fix backspace indent
-set wildmenu                          " better command line completion
-set completeopt=menu,menuone,noselect
+"==================================================
+" General
+"==================================================
+syntax on
 
-syntax on                             " syntax highlighting
-set clipboard=unnamedplus             " system clipboard
-filetype plugin on
-filetype plugin indent on
+set encoding=UTF-8
+set ma
+set mouse=a
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set autoread
+set nobackup
+set nowritebackup
+set noswapfile
+set nu
+set foldlevelstart=99
+set scrolloff=10
 
-" Plugins
-runtime ./plugins.vim
+set clipboard=unnamedplus " use y and p with the system clipboard
+set ignorecase
+set hlsearch
 
-" Map leader
+set wildmenu
+
+"==================================================
+" Leader
+"==================================================
 let mapleader=','
 
-" Lightline
-colorscheme nord
-let g:lightline={
-	\ 'colorscheme':'nord',
-	\ 'active':{
-	\		'left':[['mode','paste'],['readonly','filename', 'modified']]
-	\ },
-	\ }
+"==================================================
+" Plugins
+"==================================================
+call plug#begin('~/.config/nvim/autoload/')
 
-" NERDTree
-:nnoremap <C-n> :NERDTreeToggle<CR>
+" Theme
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
-" Go
-let g:go_list_type="quickfix"
-let g:go_fmt_command="goimports"
-let g:go_fmt_fail_silently=1
-let g:go_highlight_types=1
-let g:go_highlight_fields=1
-let g:go_highlight_functions=1
-let g:go_highlight_methods=1
-let g:go_highlight_operators=1
-let g:go_highlight_build_constraints=1
-let g:go_highlight_structs=1
-let g:go_highlight_generate_tags=1
-let g:go_highlight_space_tab_error=0
-let g:go_highlight_array_whitespace_error=0
-let g:go_highlight_trailing_whitespace_error=0
-let g:go_highlight_extra_types=1
+" LSP & Autocompletition
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+" Snips
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.0'}
+
+" Git
+Plug 'TimUntersberger/neogit'
+
+" File explorer
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Vimwiki
-let g:vimwiki_list=[
-	\ {
-	\ 'path': '~/Documentos/Brain/',
-	\ 'syntax': 'markdown', 'ext': '.md'
-	\ }]
+Plug 'vimwiki/vimwiki'
 
-" FZF-like search
-" :find * makes a fuzzy search
-" :b lets autocomplete any open buffer
-set path+=**
+" Autopairs
+Plug 'windwp/nvim-autopairs'
+call plug#end()
 
-" Nice abbreviations
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
+"==================================================
+" LSP servers
+"==================================================
+lua << EOF
+    require("nvim-lsp-installer").setup()
+EOF
 
-" Splits
-nmap ss :split<CR>
-nmap sv :vsplit<CR>
+"==================================================
+" Colorscheme
+"==================================================
+let g:catppuccin_flavour='frappe'
 
-" Startify
-let g:startify_custom_header=[
-	\ ' ________   _______   ________  ___      ___ ___  _____ ______      ',
-	\ '|\   ___  \|\  ___ \ |\   __  \|\  \    /  /|\  \|\   _ \  _   \    ',
-	\ '\ \  \\ \  \ \   __/|\ \  \|\  \ \  \  /  / | \  \ \  \\\__\ \  \   ',
-	\ ' \ \  \\ \  \ \  \_|/_\ \  \\\  \ \  \/  / / \ \  \ \  \\|__| \  \  ',
-	\ '  \ \  \\ \  \ \  \_|\ \ \  \\\  \ \    / /   \ \  \ \  \    \ \  \ ',
-	\ '   \ \__\\ \__\ \_______\ \_______\ \__/ /     \ \__\ \__\    \ \__\',
-	\ '    \|__| \|__|\|_______|\|_______|\|__|/       \|__|\|__|     \|__|',
-	\]
+lua << EOF
+    require("catppuccin").setup({
+    integrations={
+        cmp=true,
+        markdown=true,
+        neogit=true,
+        telescope=true,
+        vimwiki=true,
+    },
+    })
+EOF
 
-let g:startify_lists=[
-	\ { 'type': 'bookmarks', 'header': [' Bookmarks '] },
-	\ { 'type': 'files', 'header': [' Files '] },
-	\ ]
+colorscheme catppuccin
 
-let g:startify_bookmarks=[
-	\ { 'v' : '~/.config/nvim/init.vim' },
-	\ { 'z' : '~/.zshrc' },
-	\ { 'g' : '~/.gitconfig' },
-	\ { 'c' : '~/Documentos/Code' },
-\ ]
+"==================================================
+" File explorer
+"==================================================
+nnoremap <leader>d :NvimTreeToggle<cr>
 
-" lsp_installer
-lua << END
-local lsp_installer = require 'nvim-lsp-installer'
+lua << EOF
+    require("nvim-tree").setup({
+        sort_by="case_sensitive",
+        view={
+            adaptive_size=true,
+        },
+        renderer={
+            group_empty=true,
+        },
+        filters={
+            dotfiles=false,
+        },
+    })
+EOF
 
--- Registers a handler that will be called for each installed lsp server
-lsp_installer.on_server_ready(function(server)
+"==================================================
+" Autopairs
+"==================================================
+lua << EOF
+    require("nvim-autopairs").setup{}
+EOF
 
--- No options passed to the server
-server:setup({})
-end)
-END
+"==================================================
+" Vimwiki
+"==================================================
+let g:vimwiki_list=[{'path': '~/Documentos/Vault/',
+            \ 'syntax': 'markdown', 'ext': '.md' }]
+
+"==================================================
+" Telescope
+"==================================================
+nnoremap <leader>ff<cmd>Telescope find_files<cr>
+nnoremap <leader>fg<cmd>Telescope live_grep<cr>
+nnoremap <leader>fb<cmd>Telescope buffers<cr>
+nnoremap <leader>fh<cmd>Telescope help_tags<cr>
+
+"==================================================
+" CMP
+"==================================================
+set completeopt=menu,menuone,noselect
+
+lua << EOF
+    local cmp=require('cmp')
+
+    cmp.setup({
+        snippet={
+            expand=function(args)
+                vim.fn["vsnip#anonymous"](args.body)
+            end,
+        },
+        window={
+            -- completion = cmp.config.window.bordered(),
+            -- documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<C-b>']=cmp.mapping.scroll_docs(-4),
+            ['<C-f>']=cmp.mapping.scroll_docs(4),
+            ['<C-Space>']=cmp.mapping.complete(),
+            ['<C-e>']=cmp.mapping.abort(),
+            ['<CR>']=cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+            {name='nvim_lsp'},
+            {name='vsnip'},
+            },
+        {
+             {name='buffer'},
+        })
+    })
+EOF
+
+"==================================================
+" Treesitter
+"==================================================
+lua << EOF
+    require('nvim-treesitter.configs').setup({
+        ensure_installed={"lua", "python"},
+        auto_install=true,
+        highlight={
+            enable=true,
+        },
+    })
+EOF
+
+"==================================================
+" Status line
+"==================================================
+set statusline=
+set statusline+=\ %F\ %M\ %Y\ %R
+set statusline+=%=
+set statusline+=\ row:\ %l\ col:\ %c\ percent:\ %p%%
+set laststatus=2
