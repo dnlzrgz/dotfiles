@@ -10,3 +10,4 @@
 	- Some aspects of my workflow are managed using [gh](https://cli.github.com/).
 - zsh config.
 - newsboat config.
+- tmux config.

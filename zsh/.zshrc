@@ -8,17 +8,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Path to your oh-my-zsh installation
+# Java
+export JAVA_HOME="/usr/lib/jvm/java-1.18.0-openjdk-amd64/"
+
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Display red dots whilst waiting for completion
+# Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Add wisely
-plugins=(git command-not-found nvm node docker docker-compose history ubuntu vscode)
+# Add wisely.
+plugins=(git command-not-found nvm node docker docker-compose history ubuntu vscode tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,13 +30,17 @@ alias :q='exit'
 alias vim='nvim'
 alias cls='clear'
 alias weather='curl wttr.in'
+alias news='newsboat'
 
 alias shutdown='sudo shutdown -h now'
 
 alias zshconf='vim ~/.zshrc'
 alias gconf='vim ~/.gitconfig'
 alias vconf='vim ~/.config/nvim/init.vim'
+alias tmuxconf='vim ~/.tmux.conf'
+alias kittyconf='vim ~/.config/kitty/kitty.conf'
 alias vv='vconf'
+alias vsnip='cd ~/.config/nvim/snippets; vim .'
 
 alias upall='sudo apt update && sudo snap refresh'
 alias upallu='sudo apt update && sudo apt upgrade -y && sudo snap refresh'

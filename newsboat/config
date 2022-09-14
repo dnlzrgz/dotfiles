@@ -22,4 +22,12 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          black     yellow
+color listfocus_unread   black     yellow
+color info               default   black
+color article            default   default
+
 macro y set browser "mpv %u" ; open-in-browser ; set browser "elinks %u"
