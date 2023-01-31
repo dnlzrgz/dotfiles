@@ -1,62 +1,117 @@
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# Powerlevel10k
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# nvm
+
+# Load nvim
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Java
-export JAVA_HOME="/usr/lib/jvm/java-1.18.0-openjdk-amd64/"
 
-# Path to your oh-my-zsh installation.
+# Load pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+
+# Poetry
+export PATH="$HOME/.local/bin:$PATH"
+
+
+# User configuration
+export EDITOR="nvim"
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+
+# oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
 
-# Display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# Theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Add wisely.
-plugins=(git command-not-found nvm node docker docker-compose history ubuntu vscode tmux)
+
+# Enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+
+# Plugins
+plugins=(git python poetry pyenv node nvm npm docker docker-compose)
+
 
 source $ZSH/oh-my-zsh.sh
 
-# Alias
-alias :q='exit'
-alias vim='nvim'
-alias cls='clear'
-alias weather='curl wttr.in'
-alias news='newsboat'
 
-alias shutdown='sudo shutdown -h now'
+# Aliases
+alias reload="source ~/.zshrc"
+alias cls="clear"
 
-alias zshconf='vim ~/.zshrc'
-alias gconf='vim ~/.gitconfig'
-alias vconf='vim ~/.config/nvim/init.vim'
-alias tmuxconf='vim ~/.tmux.conf'
-alias kittyconf='vim ~/.config/kitty/kitty.conf'
-alias vv='vconf'
-alias vsnip='cd ~/.config/nvim/snippets; vim .'
+alias vim="nvim"
+alias v="nvim"
+alias :q="exit"
 
-alias upall='sudo apt update && sudo snap refresh'
-alias upallu='sudo apt update && sudo apt upgrade -y && sudo snap refresh'
+alias ..="../.."
+alias ...="../../.."
+alias ....="../../../.."
 
-alias .='cd ..'
-alias ..='cd ../../'
-alias ...='cd ../../../'
+alias dl="cd ~/Downloads"
+alias docs="cd ~/Documents"
+alias codir="cd ~/Documents/Code"
 
-alias dl='cd ~/Descargas'
-alias docs='cd ~/Documentos'
-alias vault='cd ~/Documentos/Vault'
+alias vconf="nvim ~/.config/nvim/init.lua"
+alias zconf="nvim ~/.zshrc"
+alias gconf="nvim ~/.gitconfig"
+alias kconf="nvim ~/.config/kitty/kitty.conf"
 
-alias g='git'
-alias v='vim'
-alias h='history'
+alias update="sudo apt update"
+alias upgrade="sudo apt upgrade"
+alias upgradey="sudo apt upgrade -y"
+alias nvmup="nvm install node"
 
-alias cp='cp -i'
-alias mv='mv -i'
-alias untar='tar xvf'
+alias pon="poetry new"
+alias poi="poetry init"
+alias poa="poetry add"
+alias poad="poetry add --group dev"
+alias pos="poetry shell"
+
+alias ginit="git init"
+
+alias s="kitty +kitten ssh"
+alias myip="curl https://ipinfo.io/json"
+
+alias weather="curl wttr.in"
+alias news="newsboat"
+
+
+# cht.sh
+cht () {
+	curl "https://cht.sh/$1/$2"
+}
+
+chtpy () {
+	curl "https://cht.sh/python/$1"
+}
+
+# Pomodoro
+alias lolcat="lolcat-rs"
+
+declare -A pomo_options
+pomo_options["work"]="25"
+pomo_options["break"]="5"
+
+pomodoro () {
+	if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
+	val=$1
+	echo $val | lolcat
+	timer ${pomo_options["$val"]}m
+	spd-say "'$val' session done"
+	fi
+}
+
+alias wo="pomodoro 'work'"
+alias br="pomodoro 'break'"
+
+# `p10k configure`
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -1,28 +1,32 @@
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = [username]
+	email = [email]
 
 [alias]
+	# Abbreviated SHA, description and history graph
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+	# Current working tree status short formatted
 	s = status -s
-	c = clone --recursive
-	d = diff
-	co = checkout
-	ci = commit
-	ca = commit -a
-	st = status
+
+	# Diff between the latest commit and current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+	# Verbose output about tags, branches and remotes.
 	tags = tag -l
 	branches = branch -a
-	remotes = remote -v
+	remotes = remove -v
+
+	# Amend currently staged files to latest commit
 	amend = commit --amend --reuse-message=HEAD
+
 [apply]
+	# Detect whitespace errors
 	whitespace = fix
+
 [core]
-	editor = vim
-[color]
-	ui = auto
+	editor = nvim
+
 [help]
+	# Correct and execute mistyped commands
 	autocorrect = 1
