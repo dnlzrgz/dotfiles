@@ -47,18 +47,19 @@ alias ...="../../.."
 alias ....="../../../.."
 
 alias dl="cd ~/Downloads"
-alias docs="cd ~/Documents"
-alias codir="cd ~/Documents/Code"
+alias code="cd ~/Documents/Code/"
 
-alias vconf="vim ~/.vimrc"
-alias zconf="vim ~/.zshrc"
-alias gconf="vim ~/.gitconfig"
-alias tmuxconf="vim ~/.tmux.conf"
+alias zconf="nvim ~/.zshrc"
+alias gconf="nvim ~/.gitconfig"
+alias vconf="nvim ~/.config/nvim/init.lua"
+alias tconf="nvim ~/.tmux.conf"
 
 alias update="sudo apt update"
 alias upgrade="sudo apt upgrade"
 alias upgradey="sudo apt upgrade -y"
 alias nvmup="nvm install node"
+alias flatup="flatpak update"
+alias snapup="snap refresh"
 
 alias pon="poetry new"
 alias poi="poetry init"
@@ -66,29 +67,18 @@ alias poa="poetry add"
 alias poad="poetry add --group dev"
 alias pos="poetry shell"
 
-alias ginit="git init"
+alias d="docker"
+alias di="docker image ls"
+alias dip="docker image pull"
+alias dirm="docker image rm"
+alias dipr="docker image prune"
+alias dc="docker-compose"
+alias dcu="docker-compose up -d --build"
 
 alias myip="curl https://ipinfo.io/json"
 alias weather="curl wttr.in"
-alias news="newsboat"
 
 alias shutdown="sudo shutdown -h now"
 
-# cht.sh
-cht () {
-	curl "https://cht.sh/$1/$2"
-}
-
-chtool () {
-  curl "https://cht.sh/$1"
-}
-
-chtpy () {
-	curl "https://cht.sh/python/$1"
-}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Haskell
-[ -f "/home/daniel/.ghcup/env" ] && source "/home/daniel/.ghcup/env" # ghcup-env
