@@ -38,6 +38,8 @@ source $ZSH/oh-my-zsh.sh
 alias reload="source ~/.zshrc"
 alias cls="clear"
 
+alias s="kitty +kitten ssh"
+
 alias v="nvim"
 alias vim="nvim"
 alias :q="exit"
@@ -47,12 +49,14 @@ alias ...="../../.."
 alias ....="../../../.."
 
 alias dl="cd ~/Downloads"
+alias docs="cd ~/Documents"
 alias code="cd ~/Documents/Code/"
 
 alias zconf="nvim ~/.zshrc"
 alias gconf="nvim ~/.gitconfig"
 alias vconf="nvim ~/.config/nvim/init.lua"
 alias tconf="nvim ~/.tmux.conf"
+alias kconf="nvim ~/.config/kitty/kitty.conf"
 
 alias update="sudo apt update"
 alias upgrade="sudo apt upgrade"
@@ -77,8 +81,10 @@ alias dcu="docker-compose up -d --build"
 
 alias myip="curl https://ipinfo.io/json"
 alias weather="curl wttr.in"
+alias news="newsboat"
 
 alias shutdown="sudo shutdown -h now"
+alias reboot="sudo reboot"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
