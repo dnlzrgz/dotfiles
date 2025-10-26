@@ -4,7 +4,8 @@
 @define-color accent     #1e66f5; /* blue */
 
 * {
-  background-color: @background;
+  /* background-color: @background; */
+  background-color: transparent;
   color: @foreground;
 
   border: none;
@@ -12,6 +13,15 @@
   min-height: 0;
   font-family: "CaskaydiaMono Nerd Font";
   font-size: 12px;
+}
+
+#clock,
+.modules-left,
+.modules-right {
+  background-color: @background;
+  margin-top: 3px;
+  padding: 0 8px;
+  border-radius: 12px;
 }
 
 .modules-left {
@@ -60,6 +70,7 @@
 
 tooltip {
   padding: 2px;
+  background-color: @background;
 }
 
 #custom-update {
